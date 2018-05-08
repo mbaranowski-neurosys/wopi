@@ -1,4 +1,4 @@
-service: serverless-typescript-demo
+service: wopi
 
 provider:
   name: aws
@@ -13,10 +13,29 @@ custom:
     packagerOptions: {}   # Optional, depending on the selected packager
 
 functions:
-  hello:
-    handler: handler.hello
-
+  CheckFileInfo:
+    handler: handler.wopi
     events:
      - http:
-         path: hello
+         path: wopi/files/{id}
          method: get
+  GetFile:
+    handler: handler.wopi
+    events:
+     - http:
+         path: wopi/files/{id}/contents
+         method: get
+  SetFileMetadata:
+    handler: handler.wopi
+    events:
+     - http:
+         path: wopi/files/{id}
+         method: post
+  PutFile:
+    handler: handler.wopi
+    events:
+     - http:
+         path: wopi/files/{id}/contents
+         method: post
+
+    
