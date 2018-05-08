@@ -1,0 +1,22 @@
+service: serverless-typescript-demo
+
+provider:
+  name: aws
+  runtime: nodejs4.3
+
+plugins:
+  - serverless-webpack
+
+custom:
+  webpack:
+    packager: 'yarn'      # Defaults to npm
+    packagerOptions: {}   # Optional, depending on the selected packager
+
+functions:
+  hello:
+    handler: handler.hello
+
+    events:
+     - http:
+         path: hello
+         method: get
