@@ -5,7 +5,7 @@ import * as utils from './src/Utils/WopiUtil';
 
 export function wopi(event, context, callback) {
 
-  console.log('Handling ' + event.method + ' request for file/folder id ' + event.id);
+  // console.log('Handling ' + event.method + ' request for file/folder id ' + event.id);
 
   let files = new Array<DetailedFile>();
 
@@ -22,17 +22,15 @@ export function wopi(event, context, callback) {
   files.push(xlFile);
   files.push(pptFile);
 
-  utils.PopulateActions(files);
-
-  console.log(files);
-
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Hello from typescript',
-      files,
-    }),
-  };
-
-  callback(null, response);
+  utils.PopulateActions(files, (actions) => {
+    console.log(actions);
+    context.succeed({
+      statusCode: 200,
+      body: JSON.stringify({
+        message: 'Hello from typescript',
+        files,
+        actions,
+      }),
+    });
+  });
 };

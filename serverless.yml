@@ -2,7 +2,8 @@ service: wopi
 
 provider:
   name: aws
-  runtime: nodejs4.3
+  runtime: nodejs6.10
+  timeout: 10
 
 plugins:
   - serverless-webpack
