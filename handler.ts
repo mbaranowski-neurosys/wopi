@@ -2,14 +2,37 @@
 import { DetailedFile } from './src/models/DetailedFile';
 import * as utils from './src/Utils/WopiUtil';
 import { checkFileInfo as checkFileInfoService } from './src/Services/CheckFileInfo';
+import * as fs from 'fs';
+import * as path from 'path';
+import * as https from 'https';
+import * as url from 'url';
 
 export async function checkFileInfo(event, context, callback) {
   const value = await checkFileInfoService();
-  context.succeed(value);
+  context.succeed({
+    statusCode: 200,
+    body: JSON.stringify(value)
+  });
 }
 
 export function getFile(event, context, callback) {
-  //TODO
+  https.get(url.parse('https://calibre-ebook.com/downloads/demos/demo.docx'), function(res) {
+      var data = [];
+      res.on('data', function(chunk) {
+          data.push(chunk);
+      }).on('end', function() {
+          var buffer = Buffer.concat(data);
+          console.log(buffer);
+          context.succeed({
+            statusCode: 200,
+            headers: { 
+              'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            },
+            body: buffer.toString('base64'),
+            isBase64Encoded: true,
+          });
+      });
+  });
 }
 
 

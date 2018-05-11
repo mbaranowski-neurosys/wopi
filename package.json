@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "aws-lambda": "^0.1.2",
     "body-parser": "^1.17.2",
     "compression": "^1.6.2",
     "dotenv": "^4.0.0",
@@ -27,6 +28,8 @@
     "@types/request": "0.0.43",
     "@types/xml": "^1.0.1",
     "@types/xml2js": "0.0.33",
+    "serverless-apigw-binary": "^0.4.4",
+    "serverless-apigwy-binary": "^0.1.0",
     "serverless-webpack": "^5.1.5",
     "ts-loader": "^4.3.0",
     "typescript": "^2.8.3",
